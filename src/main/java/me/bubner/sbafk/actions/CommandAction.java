@@ -17,6 +17,13 @@ public class CommandAction {
      * @param recovery The recovery event to run.
      */
     public static void runRecovery(ModConfig config, FlagTrigger trigger, Events.RecoveryEvent recovery, boolean recurse) {
+        if (!config.isInvasive()) {
+            // Don't attempt any actions other than alerts, use always high priority since recovery will fail
+            Utils.sendMsg("Recovery was inhibited as invasive mode is disabled. Sending high-priority notice.");
+            trigger.setSuccess(false);
+            new SendAlert(config, trigger, Events.AlertPriority.HIGH).start();
+            return;
+        }
         if (Utils.isOnPrivateIsland() && Utils.isInSkyblock() && recurse) {
             // Further recovery not required
             Utils.sendMsg("Recovery completed. Sending notice.");

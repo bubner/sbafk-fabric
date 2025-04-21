@@ -14,8 +14,9 @@ import java.util.Objects;
  */
 public class SbAFKSettings extends CommandBase {
 
-    private static final String USE_COMMAND = "/sbafk <active | wh | discordid | identifier | maxtries> <value | clear>\n\n" +
+    private static final String USE_COMMAND = "/sbafk <active | invasive | wh | discordid | identifier | maxtries> <value | clear>\n\n" +
             "<active>: whether to activate the mod (true/false)\n" +
+            "<invasive>: whether to take invasive action on kick, or just notify (true/false)\n" +
             "<wh>: discord webhook for notifications, paste all the text after `https://discord.com/api/webhooks/` in the URL\n" +
             "<discordid>: id of person to ping, optionally supports @everyone and @here\n" +
             "<identifier>: configure name: sbafk notifier for <identifier>\n" +
@@ -56,6 +57,9 @@ public class SbAFKSettings extends CommandBase {
                 case "active":
                     config.get("settings", "active", true).set(true);
                     break;
+                case "invasive":
+                    config.get("settings", "invasive", true).set(true);
+                    break;
                 case "wh":
                     config.get("settings", "webhook", "").set("");
                     break;
@@ -74,6 +78,9 @@ public class SbAFKSettings extends CommandBase {
             switch (args[0]) {
                 case "active":
                     config.get("settings", "active", true).set(Boolean.parseBoolean(args[1]));
+                    break;
+                case "invasive":
+                    config.get("settings", "invasive", true).set(Boolean.parseBoolean(args[1]));
                     break;
                 case "wh":
                     // Crappy hack as Minecraft chat has a character limit, would implement a GUI if I needed one
@@ -94,6 +101,9 @@ public class SbAFKSettings extends CommandBase {
             switch (args[0]) {
                 case "active":
                     Utils.sendMsg("active: " + config.get("settings", "active", true).getBoolean());
+                    break;
+                case "invasive":
+                    Utils.sendMsg("invasive: " + config.get("settings", "invasive", true).getBoolean());
                     break;
                 case "wh":
                     Utils.sendMsg("webhook: " + config.get("settings", "webhook", "").getString());

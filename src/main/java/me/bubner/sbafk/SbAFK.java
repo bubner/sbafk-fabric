@@ -17,13 +17,14 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 @Mod(modid = SbAFK.MODID, version = SbAFK.VERSION)
 public class SbAFK {
     public static final String MODID = "sbafk";
-    public static final String VERSION = "1.0";
+    public static final String VERSION = "1.1";
 
     private final Configuration config = Utils.getConfig();
 
     @Mod.EventHandler
     public void preInit(FMLInitializationEvent event) {
         config.get("settings", "active", true);
+        config.get("settings", "invasive", true);
         config.get("settings", "webhook", "");
         config.get("settings", "discordid", "");
         config.get("settings", "identifier", "");

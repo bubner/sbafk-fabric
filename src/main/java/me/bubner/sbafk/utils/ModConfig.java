@@ -6,13 +6,17 @@ import net.minecraftforge.common.config.Configuration;
  * Utility getter class for mod configuration.
  */
 public class ModConfig {
-    private Configuration config;
+    private final Configuration config;
     public ModConfig(Configuration config) {
         this.config = config;
     }
 
     public boolean isActive() {
         return config.get("settings", "active", false).getBoolean();
+    }
+    
+    public boolean isInvasive() {
+        return config.get("settings", "invasive", true).getBoolean();
     }
 
     public String getWebhook() {

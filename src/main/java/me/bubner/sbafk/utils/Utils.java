@@ -32,15 +32,17 @@ public class Utils {
     public static boolean isOnPrivateIsland() {
         try {
             if (Minecraft.getInstance().level == null) return false;
-            Scoreboard sc = Minecraft.getInstance().level.getScoreboard();
-            Objective sidebar = sc.getDisplayObjective(DisplaySlot.SIDEBAR);
-            if (sidebar == null) return false;
-            for (PlayerScoreEntry line : sc.listPlayerScores(sidebar)) {
-                Component playerName = line.ownerName();
-                PlayerTeam team = sc.getPlayersTeam(playerName.toString());
-                if (PlayerTeam.formatNameForTeam(team, playerName).toString().trim().contains("Your Isla")) {
+            Scoreboard scoreboard = Minecraft.getInstance().level.getScoreboard();
+            Objective objective = scoreboard.getDisplayObjective(DisplaySlot.SIDEBAR);
+            if (objective == null) return false;
+            var scores = scoreboard.listPlayerScores(objective);
+            for (PlayerScoreEntry score : scores) {
+                var team = scoreboard.getPlayersTeam(score.owner());
+                if (team == null) continue;
+                // Prefix will only contain a certain amount of the phrase Your Island (previously separated by a
+                // soccer ball for whatever reason)
+                if (team.getPlayerPrefix().getString().contains("Your Isla"))
                     return true;
-                }
             }
         } catch (NullPointerException e) {
             return false;

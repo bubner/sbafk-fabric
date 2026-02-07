@@ -12,7 +12,7 @@ import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents;
  */
 public class ChatListener {
     public ChatListener(ModConfig config) {
-        ClientReceiveMessageEvents.CHAT.register((message, signedMessage, sender, params, receptionTimestamp) -> {
+        ClientReceiveMessageEvents.GAME.register((message, overlay) -> {
             if (!config.isActive()) {
                 return;
             }

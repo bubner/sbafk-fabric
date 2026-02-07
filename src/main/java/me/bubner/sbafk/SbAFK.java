@@ -1,46 +1,24 @@
 package me.bubner.sbafk;
 
-import me.bubner.sbafk.commands.SbAFKSettings;
-import me.bubner.sbafk.listeners.ChatListener;
-import me.bubner.sbafk.listeners.ConnectionListener;
-import me.bubner.sbafk.utils.ModConfig;
-import me.bubner.sbafk.utils.Utils;
-import net.minecraftforge.client.ClientCommandHandler;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.fabricmc.api.ModInitializer;
 
-/**
- * SbAFK
- */
-@Mod(modid = SbAFK.MODID, version = SbAFK.VERSION)
-public class SbAFK {
-    public static final String MODID = "sbafk";
-    public static final String VERSION = "1.1";
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-    private final Configuration config = Utils.getConfig();
+public class SbAFK implements ModInitializer {
+	public static final String MOD_ID = "sbafk";
 
-    @Mod.EventHandler
-    public void preInit(FMLInitializationEvent event) {
-        config.get("settings", "active", true);
-        config.get("settings", "invasive", true);
-        config.get("settings", "webhook", "");
-        config.get("settings", "discordid", "");
-        config.get("settings", "identifier", "");
-        config.get("settings", "maxtries", 2);
-        if (config.hasChanged()) {
-            config.save();
-        }
-    }
+	// This logger is used to write text to the console and the log file.
+	// It is considered best practice to use your mod id as the logger's name.
+	// That way, it's clear which mod wrote info, warnings, and errors.
+	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
-    @Mod.EventHandler
-    public void init(FMLInitializationEvent event) {
-        System.out.println("Lachlan Paul CSS");
-        // Register commands and the two primary disconnect listeners
-        ModConfig modConfig = new ModConfig(this.config);
-        ClientCommandHandler.instance.registerCommand(new SbAFKSettings(config));
-        MinecraftForge.EVENT_BUS.register(new ConnectionListener(modConfig));
-        MinecraftForge.EVENT_BUS.register(new ChatListener(modConfig));
-    }
+	@Override
+	public void onInitialize() {
+		// This code runs as soon as Minecraft is in a mod-load-ready state.
+		// However, some things (like resources) may still be uninitialized.
+		// Proceed with mild caution.
+
+		LOGGER.info("Hello Fabric world!");
+	}
 }

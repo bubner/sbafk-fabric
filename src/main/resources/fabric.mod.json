@@ -1,0 +1,30 @@
+{
+	"schemaVersion": 1,
+	"id": "sbafk",
+	"version": "${version}",
+	"name": "sbafk",
+	"description": "Hypixel SkyBlock Private Island AFK tooling",
+	"authors": [
+		"bubner"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/sbafk/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+          "me.bubner.sbafk.SbAFK"
+		]
+	},
+	"mixins": [
+	],
+	"depends": {
+		"fabricloader": ">=0.18.4",
+		"minecraft": "~1.21.10",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}

@@ -8,8 +8,8 @@
 		"bubner"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://github.com/bubner/sbafk-fabric",
+		"sources": "https://github.com/bubner/sbafk-fabric"
 	},
 	"license": "MIT",
 	"icon": "assets/sbafk/icon.png",

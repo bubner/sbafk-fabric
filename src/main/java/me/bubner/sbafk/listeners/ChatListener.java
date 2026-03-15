@@ -12,9 +12,9 @@ import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents;
  */
 public class ChatListener {
     public ChatListener(ModConfig config) {
-        ClientReceiveMessageEvents.GAME.register((message, overlay) -> {
+        ClientReceiveMessageEvents.ALLOW_GAME.register((message, overlay) -> {
             if (!config.isActive()) {
-                return;
+                return true;
             }
 
             String msg = message.getString().toLowerCase();
@@ -26,9 +26,10 @@ public class ChatListener {
                     if (config.getWebhook().isEmpty()) {
                         Utils.sendMsg("Cannot notify! Webhook is not set! Set it with /sbafk wh <webhook link>");
                     }
-                    return;
+                    return true;
                 }
             }
+            return true;
         });
     }
 }
